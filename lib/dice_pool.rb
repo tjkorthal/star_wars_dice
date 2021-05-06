@@ -10,15 +10,16 @@ require_relative 'outcome'
 
 # calculates outcome of a check in Star Wars TTRPGs
 class DicePool
-  attr_accessor :difficulty, :ability, :boost, :setback, :proficiency, :challenge
+  attr_accessor :difficulty, :ability, :boost, :setback, :proficiency, :challenge, :verbose
 
-  def initialize(difficulty: 0, ability: 0, boost: 0, setback: 0, proficiency: 0, challenge: 0)
+  def initialize(difficulty: 0, ability: 0, boost: 0, setback: 0, proficiency: 0, challenge: 0, verbose: false)
     @difficulty = difficulty
     @ability = ability
     @boost = boost
     @setback = setback
     @proficiency = proficiency
     @challenge = challenge
+    @verbose = verbose
   end
 
   # @return [Outcome]
@@ -43,8 +44,10 @@ class DicePool
     dice_count = send(type).to_i
     return Outcome.new if dice_count.zero?
 
+    puts "#{type}:" if verbose
+
     Array.new(dice_count) { die_class(type).new.roll }
-         .each { |outcome| puts "#{type}: #{outcome}" }
+         .each { |outcome| puts "  #{outcome}" if verbose }
          .reduce(Outcome.new, :+)
   end
 end

@@ -16,7 +16,7 @@ class ChallengeDie
     Outcome.new(failure: 1, threat: 1),
     Outcome.new(threat: 2),
     Outcome.new(threat: 2),
-    Outcome.new(failure: 1, despair: 1) # only has despair on die, but counts as success
+    Outcome.new(failure: 1, despair: 1) # only has despair on die, but counts as failure
   ].freeze
 
   # @return [Outcome]
